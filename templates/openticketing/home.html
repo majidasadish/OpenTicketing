@@ -1,0 +1,70 @@
+{% extends 'openticketing/base.html' %}
+{% block content %}
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+  <!-- Image Logo -->
+  <a class="navbar-brand logo-image" href="{% url 'web:home' %}"><img src="{% static 'openticketing/img/logo.png' %}" alt="OpenTicketing"></a>
+
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navb">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link page-scroll active" href="{% url 'web:home' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link page-scroll" href="#about">Documentation</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link page-scroll" href="#about">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link page-scroll" href="#contact">Contact</a>
+      </li>
+    </ul>
+    
+    <div class="my-2 my-lg-0">
+        <ul class="navbar-nav">
+            {% if request.user.is_authenticated %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Welcome {{ request.user }}!</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{% url 'tickets:home' %}">Dashboard</a>
+                  <a class="dropdown-item" href="{% url 'web:logout' %}">Logout</a>
+                </div>
+            </li>
+            {% endif %}
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">English</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#">English</a>
+                  <a class="dropdown-item" href="#">Persian</a>
+                </div>
+            </li>
+
+            {% if not request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link page-scroll" href="{% url 'tickets:home' %}">Login</a>
+            </li>
+            {% endif %}
+            
+        </ul>
+    </div>
+  </div>
+</nav>
+
+<header id="header" class="header">
+  <div class="header-content" style="padding-top: 85px;">
+    <div class="container-fluid">
+      <div class="row">
+        <ul>
+        <li><a href="{% url 'tickets:dashboard' %}">Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock content %}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="OpenTicketig Team">
+    <meta name="description" content="OpenTicketing is an opensource and Django based application for small business">
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'openticketing/css/style.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'openticketing/vendor/fontawesome-free/css/all.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'openticketing/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'openticketing/css/sb-admin-2.min.css' %}">
+    {% block meta %}{% endblock %}
+</head>
+<body>
+
+{% block content %}
+{% endblock %}
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{% static 'openticketing/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'openticketing/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{% static 'openticketing/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{% static 'openticketing/js/sb-admin-2.min.js' %}"></script>
+</body>
+</html>

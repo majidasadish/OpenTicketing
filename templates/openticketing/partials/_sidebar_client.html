@@ -1,0 +1,29 @@
+{% extends 'openticketing/partials/_sidebar.html' %}
+{% block sidebar_menu %}
+      <!-- Nav Item - Dashboard -->
+      <li {% if 'dashboard' in request.path %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+        <a class="nav-link" href="{% url 'tickets:dashboard' %}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Tickets
+      </div>
+
+      <!-- Nav Item - My Tickets Menu -->
+      <li {% if 'tickets' in request.path %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+        <a class="nav-link" href="{% url 'tickets:client_my_tickets' %}">
+          <i class="fas fa-fw fa-table"></i>
+          <span>My Tickets</span></a>
+      </li>
+      <li {% if 'tickets/submit' in request.path %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+        <a class="nav-link" href="{% url 'tickets:submit' %}">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Submit a ticket</span></a>
+      </li>
+{% endblock sidebar_menu %}

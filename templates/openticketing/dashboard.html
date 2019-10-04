@@ -1,0 +1,23 @@
+{% extends "openticketing/layout.html" %}
+{% block title %}
+Dashboard - My tickets
+{% endblock %}
+
+{% block page_heading %}Dashboard{% endblock page_heading %}
+
+{% block page_content %}
+    {% if tickets %}
+    <ul>
+        {% for ticket in tickets %}
+            <li><a href="{% url 'tickets:submitter' ticket.submitter.id %}">{{ticket.submitter}}</a>: <a href="{% url 'tickets:ticket' ticket.id %}">{{ticket.subject}} </a>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No ticket found!</p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+    </form>
+{% endblock %}

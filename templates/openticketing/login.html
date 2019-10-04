@@ -1,0 +1,58 @@
+{% extends 'openticketing/base.html' %}
+{% block title %}
+Login - OpenTicketing
+{% endblock %}
+{% if request.user.is_authenticated %}
+        <meta http-equiv="REFRESH" content="0;url={% url 'tickets:home' %}">
+{% else %}
+    {% block content %}
+    {% load static %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-10 col-md-6 row">
+                <div class="card o-hidden border-0 shadow-lg my-2">
+                    <div class="card-body p-0">
+                        <div class="col-12">
+                            <img class="img-fluid" src="{% static 'openticketing/img/logo.png' %}" />
+                        </div>
+                        <div class="col-12">
+                            <div class="p-5">
+                                <form role="form" method='post' action='./' class="user">
+                                    {% csrf_token %}
+                                    {% if form.errors %}
+                                        <div class="alert alert-danger"> "Your username and password didn't match. Please try again."</div>
+                                    {% endif %}                                        
+                                    <div class="form-group">
+                                        <input class="form-control form-control-user" placeholder="Enter username" name="username" type="text" autofocus>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control form-control-user" placeholder="Password" name="password" type="password" value="">
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input name="remember" type="checkbox" value="Remember Me"> 'Remember Me'
+                                        </label>
+                                    </div>
+                                    <input class="btn btn-primary btn-user btn-block" type='submit' value=' "Login" ' />
+                                    <input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}../{% endif %}" />
+                                    <a href="index.html" class="btn btn-google btn-user btn-block">
+                                        <i class="fab fa-google fa-fw"></i> Login with Google
+                                    </a>
+                                    <hr />
+                                    <div class="text-center">
+                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                    </div>
+                                    <div class="text-center">
+                                        <a class="small" href="register.html">Create an Account!</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+{% endif %}
+

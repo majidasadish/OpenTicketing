@@ -1,0 +1,68 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom bg-dark fixed-top">
+
+        <!-- Image Logo -->
+        <a class="navbar-brand logo-image" href="{% url 'tickets:home' %}"><img src="{% static 'openticketing/img/logo.png' %}" alt="OpenTicketing"></a>
+        
+        <!-- Mobile Menu Toggle Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-awesome fas fa-bars"></span>
+            <span class="navbar-toggler-awesome fas fa-times"></span>
+        </button>
+        <!-- end of mobile menu toggle button -->
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link page-scroll active" href="{% url 'tickets:home' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="#about">Documentation</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="#about">About</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="#contact">Contact</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="#language">Select Language</a>
+                </li>
+
+                <li>
+                {% if request.user.is_authenticated %}
+                    <a  class="nav-link page-scroll" href="#">{{ request.user }}</a>
+                </li>
+                <li>
+                    <a  class="nav-link page-scroll" href="{% url 'web:logout' %}">Logout</a>
+                {% else %}
+                    <a class="nav-link page-scroll" href="{% url 'tickets:home' %}">Login</a>
+                {% endif %}
+                </li>
+            </ul>
+            <span class="nav-item social-icons">
+                <span class="fa-stack">
+                    <a href="http://github.com/loghmanb">
+                        <i class="fas fa-circle fa-stack-2x facebook"></i>
+                        <i class="fab fa-git-f fa-stack-1x"></i>
+                    </a>
+                </span>
+                <span class="fa-stack">
+                    <a href="#your-link">
+                        <i class="fas fa-circle fa-stack-2x facebook"></i>
+                        <i class="fab fa-facebook-f fa-stack-1x"></i>
+                    </a>
+                </span>
+                <span class="fa-stack">
+                    <a href="#your-link">
+                        <i class="fas fa-circle fa-stack-2x twitter"></i>
+                        <i class="fab fa-twitter fa-stack-1x"></i>
+                    </a>
+                </span>
+            </span>
+        </div>
+    </nav>

@@ -4,6 +4,10 @@
 
 {% block branding %}
     <h1 id="head">
-        <img src="{% static 'openticketing/img/logo.png' %}">
+        <img src="{% static 'openticketing/img/logo.png' %}" alt="Open Ticketing" class="brand_img" height="50px" />
     </h1>
 {% endblock %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin.css' %}">
+{% endblock extrastyle %}

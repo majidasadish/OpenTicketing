@@ -17,6 +17,23 @@
                 <li>{{ ticket.subject }}</li>
             {% endfor %}
         </ul>
+        <div class="pagination">
+            <span class="step-links">
+                {% if open_tickets.has_pervious %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ openTickets.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ open_tickets.number }} of {{ open_tickets.paginator.num_pages }}
+                </span>
+
+                {% if open_tickets.has_next %}
+                <a href="?page={{ open_tickets.next_page_number }}">next</a>
+                <a href="?page={{ open_tickets.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
         {% else %}
             <div>
                 <p>Congratulations! No open tickets found!</p>

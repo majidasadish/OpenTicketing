@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 from .models import Ticket
 from .forms import TicketForm
@@ -21,8 +22,11 @@ def user_activity_log(request):
     return HttpResponse('User activities log goes here!')
 
 def client_my_tickets(request):
-    open_tickets = Ticket.objects.filter(status=2)
-    return render(request, 'openticketing/client_my_tickets.html', context=dict(open_tickets=open_tickets))
+    open_ticket_listings = Ticket.objects.filter(status=2).order_by('-create_date')
+    paginator = Paginator(open_ticket_listings, 20)
+    page = request.GET.get('page')
+    paged_open_tickets = paginator.get_page(page)
+    return render(request, 'openticketing/client_my_tickets.html', context=dict(open_tickets=paged_open_tickets))
 
 def submit(request):
     print(request.POST.get('department'))

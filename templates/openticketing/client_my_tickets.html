@@ -17,23 +17,41 @@
                 <li>{{ ticket.subject }}</li>
             {% endfor %}
         </ul>
-        <div class="pagination">
-            <span class="step-links">
+            {% if open_tickets.has_other_pages %}
+            <ul class="pagination">
                 {% if open_tickets.has_pervious %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ openTickets.previous_page_number }}">previous</a>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">&laquo; first</a>
+                    </li>
+                    <a href="?page={{ openTickets.previous_page_number }}">previous</a>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link">&laquo;</a>
+                    </li>
                 {% endif %}
-
-                <span class="current">
-                    Page {{ open_tickets.number }} of {{ open_tickets.paginator.num_pages }}
-                </span>
+                {% for i in open_tickets.paginator.page_range %}
+                    {% if open_tickets.number == i %}
+                    <li class="page-item active">
+                        <a class="page-link">{{ i }}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
 
                 {% if open_tickets.has_next %}
-                <a href="?page={{ open_tickets.next_page_number }}">next</a>
-                <a href="?page={{ open_tickets.paginator.num_pages }}">last &raquo;</a>
+                    <li class="page-item">
+                        <a href="?page={{ open_tickets.paginator.num_pages }}" class="page-link">&raquo;</a>
+                    </li>
+                {% else %}
+                    <li class="page-link disabled">
+                        <a class="page-link">&raquo;</a>
+                    </li>
                 {% endif %}
-            </span>
-        </div>
+            </ul>
+            {% endif %}
         {% else %}
             <div>
                 <p>Congratulations! No open tickets found!</p>

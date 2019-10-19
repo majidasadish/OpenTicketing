@@ -21,7 +21,8 @@ def user_activity_log(request):
     return HttpResponse('User activities log goes here!')
 
 def client_my_tickets(request):
-    return render(request, 'openticketing/client_my_tickets.html')
+    open_tickets = Ticket.objects.filter(status=2)
+    return render(request, 'openticketing/client_my_tickets.html', context=dict(open_tickets=open_tickets))
 
 def submit(request):
     print(request.POST.get('department'))

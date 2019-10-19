@@ -11,9 +11,9 @@
             "program": "${workspaceFolder}/manage.py",
             "console": "integratedTerminal",
             "args": [
-                "runserver"
-                //"--noreload",
-                //"--nothreading"
+                "runserver",
+                "--noreload",
+                "--nothreading"
             ],
             "django": true
         },

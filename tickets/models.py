@@ -42,6 +42,13 @@ class Ticket(AbstractModel):
         (3, _('Low')),
     ]
     
+    STATUS = [
+        (1, _('Draft')),
+        (2, _('Open')),
+        (3, _('Closed')),
+        (4, _('Pending')),
+    ]
+
     subject = models.CharField(max_length=200, verbose_name=_('Subject'))
     description = models.TextField(verbose_name=_('Description'))
     submitter = models.ForeignKey(
@@ -61,6 +68,7 @@ class Ticket(AbstractModel):
         verbose_name=_('Assigned to'),
     )
     priority = models.IntegerField(verbose_name=_('Priority'), choices=PRIORITIES, default=2)
+    status = models.IntegerField(verbose_name=_('Status'), choices=STATUS, default=1)
     starred = models.BooleanField(verbose_name=_('Starred'), default=False)
 
     def __str__(self):

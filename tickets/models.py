@@ -9,7 +9,7 @@ class AbstractModel(models.Model):
     class Meta:
         abstract = True
 
-    create_date = models.DateTimeField(default=datetime.now)
+    create_date = models.DateTimeField(default=datetime.now, blank=True)
     create_user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -68,12 +68,12 @@ class Ticket(AbstractModel):
 
 
 class Comment(AbstractModel):
-    note = models.TextField(verbose_name=_('Note'))
     ticket = models.ForeignKey(
         Ticket,
         on_delete=models.CASCADE,
         related_name='comments',
         blank=True,
         null=True,
-        verbose_name=_('Comment')
+        verbose_name=_('Ticket')
     )
+    note = models.TextField(verbose_name=_('Note'))

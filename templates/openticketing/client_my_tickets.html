@@ -12,11 +12,28 @@
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane active in" id="openTickets">
         {% if open_tickets %}
-        <ul>
-            {% for ticket in open_tickets %}
-                <li>{{ ticket.subject }}</li>
-            {% endfor %}
-        </ul>
+            <table id="example" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Submitter</th>
+                        <th>Asigned to</th>
+                        <th>Priority</th>
+                        <th>Create date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for ticket in open_tickets %}
+                    <tr>
+                        <td>{{ ticket.subject }}</td>
+                        <td>{{ ticket.submitter }}</td>
+                        <td>{{ ticket.assigned_to }}</td>
+                        <td>{{ ticket.priority }}</td>
+                        <td>{{ ticket.create_date }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
             {% if open_tickets.has_other_pages %}
             <ul class="pagination">
                 {% if open_tickets.has_pervious %}

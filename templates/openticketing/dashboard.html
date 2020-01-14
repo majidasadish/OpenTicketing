@@ -1,4 +1,7 @@
 {% extends "openticketing/layout.html" %}
+
+{% load crispy_forms_tags %}
+
 {% block title %}
 Dashboard - My tickets
 {% endblock %}
@@ -16,8 +19,10 @@ Dashboard - My tickets
     <p>No ticket found!</p>
     {% endif %}
 
-    <form method="post">
+    <div class="col-lg-6">
+    <form method="post" novalidate>
         {% csrf_token %}
-        {{ form }}
+        {{ form|crispy}}
     </form>
+    </div>
 {% endblock %}

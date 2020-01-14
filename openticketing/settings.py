@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.forms',
+    #'django.forms',
+    'crispy_forms',
     'web_app',
     'tickets',
 ]
@@ -52,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
+#FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 ROOT_URLCONF = 'openticketing.urls'
 
@@ -131,3 +132,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 
 LOGIN_URL = 'web:login'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

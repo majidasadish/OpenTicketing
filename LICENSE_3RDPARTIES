@@ -10,6 +10,7 @@ distributed with openticketing.
 
 6. License for DataTables Bootstrap 4 integration
 7. License for Easing Compatibility v1
+8. Licence for Django-Crispy-Forms
 
 ----------------------------------------------------------
 
@@ -113,3 +114,4 @@ for further information.
 https://www.chartjs.org
 (c) 2019 Chart.js Contributors
 Released under the MIT License
+

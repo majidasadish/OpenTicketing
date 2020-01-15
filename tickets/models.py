@@ -32,6 +32,35 @@ class AbstractModel(models.Model):
         )
     
 
+class Department(AbstractModel):
+    class Meta:
+        db_table = 'openticketing_department'
+    
+    name = models.CharField(max_length=50, verbose_name=_('Name'))
+    description = models.TextField(verbose_name=_('Description'), blank=True)
+    active = models.BooleanField(verbose_name=_('Is Active'))
+
+    def __str__(self):
+        return self.name
+
+
+'''
+ This model used for holding ticket categories like:
+ - New Features
+ - Using Applications
+ - Using APIs
+ - Other
+ '''
+class TicketCategory(AbstractModel):
+    class Meta:
+        db_table = 'openticketing_category'
+    
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+    
+
 class Ticket(AbstractModel):
     class Meta:
         db_table = 'openticketing_ticket'
@@ -51,6 +80,8 @@ class Ticket(AbstractModel):
 
     subject = models.CharField(max_length=200, verbose_name=_('Subject'))
     description = models.TextField(verbose_name=_('Description'))
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Department'))
+    category = models.ForeignKey(TicketCategory, on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Help Topics'))
     submitter = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

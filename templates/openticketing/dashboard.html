@@ -11,7 +11,11 @@ Dashboard - My tickets
     {% if tickets %}
     <ul>
         {% for ticket in tickets %}
-            <li><a href="{% url 'tickets:submitter' ticket.submitter.id %}">{{ticket.submitter}}</a>: <a href="{% url 'tickets:ticket' ticket.id %}">{{ticket.subject}} </a>
+            {% if ticket.submitter %}
+            <li><a href="{% url 'tickets:submitter' ticket.submitter.id %}">{{ticket.submitter}} [{{ ticket.submitter.id }}]</a>: <a href="{% url 'tickets:ticket' ticket.id %}">{{ticket.subject}} </a></li>
+            {% else %}
+            <li>Anonymous: <a href="{% url 'tickets:ticket' ticket.id %}">{{ticket.subject}} </a></li>
+            {% endif %}
         {% endfor %}
     </ul>
     {% else %}

@@ -29,17 +29,16 @@ def client_my_tickets(request):
     return render(request, 'openticketing/client_my_tickets.html', context=dict(open_tickets=paged_open_tickets))
 
 def submit(request):
-    print(request.POST.get('department'))
-    return render(request, 'openticketing/submit_ticket.html')
+    print(request.POST)
+    form = TicketForm()
+    return render(request, 'openticketing/submit_ticket.html', context=dict(form=form))
 
 @login_required
 def dashboard(request):
     #from django.apps.apps import get_model
     #t = get_model('openticketing', 'Ticket')
-    print(request.POST)
     my_tickets = Ticket.objects.filter(assigned_to__id=request.user.id).order_by('-create_date')
-    form = TicketForm()
-    return render(request, 'openticketing/dashboard.html', context=dict(tickets=my_tickets, form=form))
+    return render(request, 'openticketing/dashboard.html', context=dict(tickets=my_tickets))
 
 @login_required
 def ticket(request, id):

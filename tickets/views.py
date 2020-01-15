@@ -36,10 +36,10 @@ def submit(request):
     if request.method=='POST':
         form = TicketForm(request.POST)
         if form.is_valid():
-            print(request.POST)
+            ticket = form.save()
             is_ticket_submitted = True
-            ticket_id = 123
-            message = f"{request.POST['subject']} is submitted succesfuly!"
+            ticket_id = ticket.id
+            message = f"'{request.POST['subject']}' is submitted succesfuly!"
     else:
         form = TicketForm()
     return render(request, 'openticketing/submit_ticket.html', 

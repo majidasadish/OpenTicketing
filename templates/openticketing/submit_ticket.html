@@ -13,6 +13,15 @@ Submit a ticket
         <div class="panel-body">
             <div class="row">
                 <div class="col-lg-6">
+                    {% if is_ticket_submitted %}
+                        <div>
+                            {{ message }}
+                            <ul>
+                                <li>for track your ticket you can <a href="{% url 'tickets:submitter' ticket_id %}">clicke here</a></li>
+                                <li>for submit new ticket you can <a href="{% url 'tickets:submit'%}">clicke here</a></li>
+                            </ul>
+                        </div>
+                    {% else %}
                     <form method="post" novalidate>
                         {% csrf_token %}
                         {{ form|crispy}}
@@ -22,6 +31,7 @@ Submit a ticket
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
+                    {% endif %}
                 </div>
             </div>
         </div>

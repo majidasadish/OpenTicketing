@@ -28,10 +28,22 @@ def client_my_tickets(request):
     paged_open_tickets = paginator.get_page(page)
     return render(request, 'openticketing/client_my_tickets.html', context=dict(open_tickets=paged_open_tickets))
 
+@login_required
 def submit(request):
-    print(request.POST)
-    form = TicketForm()
-    return render(request, 'openticketing/submit_ticket.html', context=dict(form=form))
+    is_ticket_submitted = False
+    ticket_id = None
+    message = ''
+    if request.method=='POST':
+        form = TicketForm(request.POST)
+        if form.is_valid():
+            print(request.POST)
+            is_ticket_submitted = True
+            ticket_id = 123
+            message = f"{request.POST['subject']} is submitted succesfuly!"
+    else:
+        form = TicketForm()
+    return render(request, 'openticketing/submit_ticket.html', 
+                  context=dict(form=form, is_ticket_submitted=is_ticket_submitted, ticket_id=ticket_id, message=message))
 
 @login_required
 def dashboard(request):

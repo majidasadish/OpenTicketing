@@ -15,5 +15,3 @@ class TicketForm(forms.ModelForm):
         self.fields['description'].widget.attrs.update({'placeholder' : 'Please describe the ticket in more details'})
         self.fields['description'].label = ''
         
-
-

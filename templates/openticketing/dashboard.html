@@ -23,7 +23,11 @@ Dashboard - My tickets
     <form method="post" novalidate>
         {% csrf_token %}
         {{ form|crispy}}
-         <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="form-group">
+            <label>Attachments</label>
+            <input type="file" name="attachments">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     </div>
 {% endblock %}

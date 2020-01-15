@@ -55,7 +55,7 @@ class TicketCategory(AbstractModel):
     class Meta:
         db_table = 'openticketing_category'
     
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, verbose_name=_('Name'))
 
     def __str__(self):
         return self.name
@@ -105,6 +105,24 @@ class Ticket(AbstractModel):
     def __str__(self):
         return f"{self.subject} [{self.submitter}]"
 
+
+class TicketAttachments(AbstractModel):
+    class Meta:
+        db_table = 'openticketing_ticket_attachments'
+    
+    name = models.CharField(max_length=100, verbose_name=_('Name'))
+    ticket = models.ForeignKey(
+        Ticket,
+        on_delete=models.CASCADE,
+        related_name='attachments',
+        blank=True,
+        null=True,
+        verbose_name=_('Ticket')
+    )
+    doc_file = models.FileField(upload_to='documents/%Y/%m/%d')
+
+    def __str__(self):
+        return self.name
 
 class Comment(AbstractModel):
     ticket = models.ForeignKey(

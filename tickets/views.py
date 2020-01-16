@@ -3,7 +3,7 @@ from django.contrib.auth import models
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, JsonResponse
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 from .models import Ticket
@@ -58,6 +58,9 @@ def dashboard(request):
         print(rows)
     my_tickets = Ticket.objects.filter(assigned_to__id=request.user.id).order_by('-create_date')
     return render(request, 'openticketing/dashboard.html', context=dict(tickets=my_tickets))
+
+def get_chart_data(request, *args, **kwargs):
+    return JsonResponse({'sales':100, 'customers':10})
 
 @login_required
 def ticket(request, id):

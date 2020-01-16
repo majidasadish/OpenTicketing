@@ -227,3 +227,17 @@ Dashboard - My tickets
           </div>
 
 {% endblock %}
+
+
+{% block jquery %}
+<script type="text/javascript">
+var endpoint = "{% url 'tickets:api-data' %}";
+$.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+      console.log(data);
+    }
+});
+</script>
+{% endblock %}

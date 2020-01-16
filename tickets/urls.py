@@ -15,4 +15,6 @@ urlpatterns = [
 
     path('client_my_tickets/', views.client_my_tickets, name='client_my_tickets'),
     path('submit/', views.submit, name='submit'),
+
+    path('api/data', views.get_chart_data, name='api-data'),
 ]

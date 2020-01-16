@@ -59,11 +59,11 @@ Dashboard - My tickets
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Not Resolved Tickets</h6>
-                  <div class="dropdown no-arrow show">
+                  <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in show" aria-labelledby="dropdownMenuLink" style="position: absolute; transform: translate3d(-157px, 18px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-end">
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="position: absolute; transform: translate3d(-157px, 18px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-end">
                       <div class="dropdown-header">Dropdown Header:</div>
                       <a class="dropdown-item" href="#">Action</a>
                       <a class="dropdown-item" href="#">Another action</a>
@@ -231,28 +231,16 @@ Dashboard - My tickets
 
 {% block jquery %}
 <script type="text/javascript">
-var endpoint = "{% url 'tickets:api-chart-data' %}";
+var endpoint = "{% url 'tickets:api-analytics-history' %}";
 $.ajax({
     method: "GET",
     url: endpoint,
     success: function(data){
-      console.log(data);
       var ctx = document.getElementById('submittedTicketChart');
-      var myChart = new Chart(ctx, 
-            {
-              "type":"line",
-              "data":{
-                "labels":["January","February","March","April","May","June","July"],
-                "datasets":[{
-                  "label":"No of submitted Tickets",
-                  "data":[65,59,80,81,56,55,40],
-                  "fill":false,
-                  "borderColor":"rgb(75, 192, 192)",
-                  "lineTension":0.1}]
-                },
-              "options":{}}
-        );
-
+      var myChart = new Chart(ctx, data);
+    },
+    error: function(error){
+      console.log(error);
     }
 });
 </script>

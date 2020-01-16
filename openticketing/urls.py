@@ -22,7 +22,6 @@ urlpatterns = [
     path('', include('web_app.urls')),
     path('tickets/', include('tickets.urls')),
     path('admin/', admin.site.urls),
-    path(r'^api-auth/', include('rest_framework.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

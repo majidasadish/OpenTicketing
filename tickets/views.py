@@ -62,6 +62,14 @@ def dashboard(request):
 def get_chart_data(request, *args, **kwargs):
     return JsonResponse({'sales':100, 'customers':10})
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+class ChartData(APIView):
+    authentication_classes = []
+    permission_classes = []
+    def get(self, request, format=None):
+        return Response({'sales':100, 'customers':10})
+
 @login_required
 def ticket(request, id):
     try:

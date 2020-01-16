@@ -17,4 +17,5 @@ urlpatterns = [
     path('submit/', views.submit, name='submit'),
 
     path('api/data', views.get_chart_data, name='api-data'),
+    path('api/chart/data', views.ChartData.as_view(), name='api-chart-data'),
 ]

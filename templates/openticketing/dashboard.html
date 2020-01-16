@@ -75,25 +75,14 @@ Dashboard - My tickets
                 <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-pie pt-4 pb-2"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                    <canvas id="myPieChart" width="447" height="306" class="chartjs-render-monitor" style="display: block; height: 245px; width: 358px;"></canvas>
-                  </div>
-                  <div class="mt-4 text-center small">
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-primary"></i> &lt; 30 days
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-success"></i> 30~60 days
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-info"></i> &gt; 60 days
-                    </span>
+                    <canvas id="ticketStatusPieChart" width="447" height="306" class="chartjs-render-monitor" style="display: block; height: 245px; width: 358px;"></canvas>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-<div class="row">
+          <div class="row">
 
             <!-- Content Column -->
             <div class="col-lg-6 mb-4">
@@ -237,6 +226,30 @@ $.ajax({
     url: endpoint,
     success: function(data){
       var ctx = document.getElementById('submittedTicketChart');
+      var myChart = new Chart(ctx, data);
+    },
+    error: function(error){
+      console.log(error);
+    }
+});
+
+endpoint = "{% url 'tickets:api-analytics-status' %}";
+$.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+      data = {
+        type: 'pie',
+        data: {
+          labels: ["<30 days", "30~60 days", ">60days"],
+          datasets: [{
+            label: "No. of tickets",
+            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f"],
+            data: [2478,5267,734]
+          }]
+        }
+      }
+      var ctx = document.getElementById('ticketStatusPieChart');
       var myChart = new Chart(ctx, data);
     },
     error: function(error){

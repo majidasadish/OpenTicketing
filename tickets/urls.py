@@ -5,6 +5,7 @@ from . import views
 
 from tickets.app_views.pages.dashboard import dashboard
 from tickets.app_views.api.analytics.chart import TicketHistoryData
+from tickets.app_views.tickets.my_tickets import MyTickets
 
 app_name = 'tickets'
 
@@ -16,7 +17,7 @@ urlpatterns = [
     path('dashboard/', dashboard, name='dashboard'),
     path('submitter/<int:id>', views.submitter, name='submitter'),
 
-    path('client_my_tickets/', views.client_my_tickets, name='client_my_tickets'),
+    path('tickets/my_tickets/', MyTickets.as_view(), name='customer-my-tickets'),
     path('submit/', views.submit, name='submit'),
 
     path('api/analytics/ticket-history', TicketHistoryData.as_view(), name='api-analytics-history'),

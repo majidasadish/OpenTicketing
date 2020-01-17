@@ -16,8 +16,8 @@
       </div>
 
       <!-- Nav Item - My Tickets Menu -->
-      <li {% if 'tickets/client_my_tickets' in request.path %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-        <a class="nav-link" href="{% url 'tickets:client_my_tickets' %}">
+      <li {% if 'tickets/my_tickets' in request.path %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+        <a class="nav-link" href="{% url 'tickets:customer-my-tickets' %}">
           <i class="fas fa-fw fa-table"></i>
           <span>My Tickets</span></a>
       </li>

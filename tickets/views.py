@@ -21,12 +21,6 @@ def user_settings(request):
 def user_activity_log(request):
     return HttpResponse('User activities log goes here!')
 
-def client_my_tickets(request):
-    open_ticket_listings = Ticket.objects.filter(status=2).order_by('-create_date')
-    paginator = Paginator(open_ticket_listings, 20)
-    page = request.GET.get('page')
-    paged_open_tickets = paginator.get_page(page)
-    return render(request, 'openticketing/client_my_tickets.html', context=dict(open_tickets=paged_open_tickets))
 
 @login_required
 def submit(request):

@@ -15,6 +15,7 @@
             <table id="example" class="display" style="width:100%">
                 <thead>
                     <tr>
+                        <th>Help Topic</th>
                         <th>Subject</th>
                         <th>Submitter</th>
                         <th>Asigned to</th>
@@ -26,6 +27,7 @@
                 <tbody>
                 {% for ticket in open_tickets %}
                     <tr>
+                        <td>{{ ticket.category }}</td>
                         <td>{{ ticket.subject }}</td>
                         <td>{{ ticket.submitter }}</td>
                         <td>{{ ticket.assigned_to }}</td>

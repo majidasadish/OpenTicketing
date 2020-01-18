@@ -19,6 +19,20 @@
 #
 ##############################################################################
 
-from . import my_tickets
-from . import ticket
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse, Http404
+from django.views.generic.base import TemplateView
 
+from tickets.models import Ticket
+
+class TicketView(TemplateView):
+    template_name = 'openticketing/tickets/ticket.html'
+
+    def get_context_data(self, **kwargs):
+        try:
+            ticket = Ticket.objects.get(pk=kwargs.get('id'))
+        except ObjectDoesNotExist:
+            raise Http404("Ticket does not exists!")
+        context = super().get_context_data(**kwargs)
+        context.update(ticket=ticket)
+        return context

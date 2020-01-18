@@ -28,7 +28,7 @@
                 {% for ticket in open_tickets %}
                     <tr>
                         <td>{{ ticket.category }}</td>
-                        <td>{{ ticket.subject }}</td>
+                        <td><a href="{% url 'tickets:ticket' ticket.id %}">{{ ticket.subject }}</td>
                         <td>{{ ticket.submitter }}</td>
                         <td>{{ ticket.assigned_to }}</td>
                         <td>{{ ticket.priority }}</td>

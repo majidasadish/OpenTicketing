@@ -1,4 +1,24 @@
 # -*- coding: utf-8 -*-
+##############################################################################
+#
+#    OpenTicketing, 
+#    Copyright (C) 2019-2020 OpenTicketing (<https://github.com/loghmanb/OpenTicketing>).
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+
 from django.contrib.auth import models
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
@@ -39,13 +59,6 @@ def submit(request):
     return render(request, 'openticketing/submit_ticket.html', 
                   context=dict(form=form, is_ticket_submitted=is_ticket_submitted, ticket_id=ticket_id, message=message))
 
-@login_required
-def ticket(request, id):
-    try:
-        ticket = Ticket.objects.get(pk=id)
-        return HttpResponse(f'my ticket - {id} : {ticket.subject}')
-    except ObjectDoesNotExist:
-        raise Http404("Ticket does not exists!")
 
 def submitter(request, id):
     submitter = get_object_or_404(models.User, pk=id)

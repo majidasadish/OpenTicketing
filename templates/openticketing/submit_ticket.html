@@ -24,7 +24,7 @@ Submit a ticket
                     {% else %}
                     <form method="post" novalidate>
                         {% csrf_token %}
-                        {{ form|crispy}}
+                        {{ form | crispy }}
                         <div class="form-group">
                             <label>Attachments</label>
                             <input type="file" name="attachments">

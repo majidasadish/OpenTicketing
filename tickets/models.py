@@ -122,6 +122,7 @@ class Ticket(AbstractModel):
     priority = models.IntegerField(verbose_name=_('Priority'), choices=PRIORITIES, default=2)
     status = models.IntegerField(verbose_name=_('Status'), choices=STATUS, default=1)
     starred = models.BooleanField(verbose_name=_('Starred'), default=False)
+    dependecies = models.ManyToManyField("self", blank=True)
 
     def __str__(self):
         return f"{self.subject} [{self.submitter}]"

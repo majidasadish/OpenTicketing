@@ -29,9 +29,6 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from .models import Ticket
 from .forms import TicketForm
 
-@login_required
-def user_profile(request):
-    return HttpResponse('Profile page goes here!')
 
 @login_required
 def user_settings(request):

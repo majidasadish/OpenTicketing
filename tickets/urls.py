@@ -36,7 +36,6 @@ urlpatterns = [
     path('', dashboard, name='home'),
     path('ticket/<int:id>', login_required(TicketView.as_view()), name='ticket'),
 
-    path('user_profile/', views.user_profile, name='user_profile'),
     path('dashboard/', dashboard, name='dashboard'),
     path('submitter/<int:id>', views.submitter, name='submitter'),
 

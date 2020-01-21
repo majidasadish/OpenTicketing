@@ -49,4 +49,4 @@ def user_profile(request):
 
 @login_required
 def user_setting(request):
-    return HttpResponse('<h1>Settings form goes here</h1>')
+    return render(request, 'openticketing/web_app/user_settings.html')

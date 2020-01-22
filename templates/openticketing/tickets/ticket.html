@@ -1,78 +1,71 @@
 {% extends 'openticketing/layout.html' %} {% block page_content %}
+
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-        <h6 class="m-0 font-weight-bold text-primary">{{ ticket.subject }}</h6>
-                  <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
+        <h6 class="m-0 font-weight-bold text-primary">{{ ticket.subject }} - {{ ticket.id }}</h6>
+        <div class="dropdown no-arrow">
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                <div class="dropdown-header">Dropdown Header:</div>
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
                     </div>
-                  </div>
                 </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  
+            </div>
+            <div class="card-body">                  
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-
-        <div class="col-3">
-            <div class="form-group">
-                <label>Department</label>
-                <div>{{ ticket.department }}</div>
+        <div class="col-xl-3 col-md-6 col-12">
+            <div class="form-group row">
+                <div class="col-xl-3 col-md-6 col-12">
+                    <label>Department</label>
+                </div>
+                <div class="col-xl-9 col-md-6 col-12">{{ ticket.department }}</div>
             </div>
         </div>
-        <div class="col-3">
-            <div class="form-group">
-                <label>Id</label>
-                <div>{{ ticket.id }}</div>
+        <div class="col-xl-3 col-md-6 col-12">
+            <div class="form-group row">
+                <div class="col-xl-3 col-md-3 col-12">
+                    <label>Submitter</label>
+                </div>
+                <div class="col-xl-9 col-md-9 col-12">{{ ticket.submitter }}</div>
             </div>
         </div>
         <div class="col-3">
             <div class="form-group row">
-                <div class="col-6">
-                    <label>Subject</label>
+                <div clas="col-3">
+                    <label>Category</label>
                 </div>
-                <div class="col-6">
-                    <div></div>
-                </div>
+                <div class="col-9">{{ ticket.category }}</div>
             </div>
-
         </div>
         <div class="col-3">
             <div class="form-group row">
-                <div class="col-6">
+                <div class="col-3">
+                    <label>Assigned to</label>
+                </div>
+                <div class="cl-9">{{ ticket.assigned_to }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-1">
                     <label>Description</label>
                 </div>
-                <div class="col-6">
+                <div class="col-11">
                     <div>{{ ticket.description }}</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<div class="form-group">
-    <label>Submitter</label>
-    <div>{{ ticket.submitter }}</div>
-</div>
-<div class="form-group">
-    <label>Submitter</label>
-    <div>{{ ticket.submitter }}</div>
-</div>
-<div class="form-group">
-    <label>Assigned to</label>
-    <div>{{ ticket.assigned_to }}</div>
-</div>
-
-
-
 
                 </div>
               </div>

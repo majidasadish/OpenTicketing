@@ -10,7 +10,7 @@ def dashboard(request):
     from django.db import connection
     with connection.cursor() as cr:
         cr.execute("select count(id) no_of_items, strftime('%Y-%m', create_date) [month] "
-                    "from openticketing_ticket group by strftime('%Y-%m', create_date) "
+                    "from ot_ticket group by strftime('%Y-%m', create_date) "
                     "order by strftime('%Y-%m', create_date) desc limit 10 offset 0")
         rows = cr.fetchall()
         print(rows)

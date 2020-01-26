@@ -25,45 +25,8 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-
-class AbstractModel(models.Model):
-    class Meta:
-        abstract = True
-
-    create_date = models.DateTimeField(default=datetime.now, blank=True)
-    create_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='%(class)s_create_uid',
-        blank=True,
-        null=True,
-        verbose_name=_('Created by'),
-        )
-    write_date = models.DateTimeField(
-        blank=True, 
-        null=True,
-        verbose_name=_('Last modified'))
-    write_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='%(class)s_write_uid',
-        blank=True,
-        null=True,
-        verbose_name=_('Last modified by'),
-        )
-    
-
-class Department(AbstractModel):
-    class Meta:
-        db_table = 'openticketing_department'
-    
-    name = models.CharField(max_length=50, verbose_name=_('Name'))
-    description = models.TextField(verbose_name=_('Description'), blank=True)
-    active = models.BooleanField(verbose_name=_('Is Active'))
-
-    def __str__(self):
-        return self.name
-
+from utils.models import AbstractModel
+from web_app.models import Department, Organization
 
 '''
  This model used for holding ticket categories like:
@@ -74,7 +37,8 @@ class Department(AbstractModel):
  '''
 class TicketCategory(AbstractModel):
     class Meta:
-        db_table = 'openticketing_category'
+        db_table = 'ot_category'
+        verbose_name = _('Ticket category')
     
     name = models.CharField(max_length=50, verbose_name=_('Name'))
 
@@ -84,7 +48,7 @@ class TicketCategory(AbstractModel):
 
 class Ticket(AbstractModel):
     class Meta:
-        db_table = 'openticketing_ticket'
+        db_table = 'ot_ticket'
 
     PRIORITIES = [
         (1, _('High')),
@@ -111,6 +75,7 @@ class Ticket(AbstractModel):
         null=True,
         verbose_name=_('Submitter'),
     )
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Organization'))
     assigned_to = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -130,7 +95,7 @@ class Ticket(AbstractModel):
 
 class TicketAttachments(AbstractModel):
     class Meta:
-        db_table = 'openticketing_ticket_attachments'
+        db_table = 'ot_ticket_attachments'
     
     name = models.CharField(max_length=100, verbose_name=_('Name'))
     ticket = models.ForeignKey(
@@ -147,6 +112,9 @@ class TicketAttachments(AbstractModel):
         return self.name
 
 class Comment(AbstractModel):
+    class Meta:
+        db_table = 'ot_comment'
+
     ticket = models.ForeignKey(
         Ticket,
         on_delete=models.CASCADE,

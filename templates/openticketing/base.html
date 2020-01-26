@@ -7,11 +7,13 @@
     <meta name="author" content="OpenTicketig Team">
     <meta name="description" content="OpenTicketing is an opensource and Django based application for small business">
     <title>{% block title %}{% endblock %}</title>
+    
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'openticketing/css/style.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'openticketing/vendor/fontawesome-free/css/all.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'openticketing/vendor/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'openticketing/css/sb-admin-2.min.css' %}">
+
     {% block meta %}{% endblock %}
 </head>
 <body>

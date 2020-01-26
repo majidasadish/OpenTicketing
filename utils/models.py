@@ -19,8 +19,34 @@
 #
 ##############################################################################
 
+from datetime import datetime
 
-from . import models
+from django.conf import settings
+from django.db import models
+from django.utils.translation import gettext_lazy as _
 
-def change_date2str(year, month):
-    return ''
+class AbstractModel(models.Model):
+    class Meta:
+        abstract = True
+
+    create_date = models.DateTimeField(default=datetime.now, blank=True)
+    create_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='%(class)s_create_uid',
+        blank=True,
+        null=True,
+        verbose_name=_('Created by'),
+        )
+    write_date = models.DateTimeField(
+        blank=True, 
+        null=True,
+        verbose_name=_('Last modified'))
+    write_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='%(class)s_write_uid',
+        blank=True,
+        null=True,
+        verbose_name=_('Last modified by'),
+        )

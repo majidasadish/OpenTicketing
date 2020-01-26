@@ -60,9 +60,18 @@ body {
                     <li class="list-group-item">
                         <div class="h6">Dependencies</div>
                         <div class="h7">
-                            {% if not ticket.dipendencies %}No Dipendency{% endif %}
-                            {% for dipendency in ticket.dipendencies %}
-                                <span class="label label-primary">adasdas</span>
+                            {% if not ticket.dependencies.count %}No Dependency{% endif %}
+                            {% for dependency in ticket.dependencies.all %}
+                                <span class="label label-primary">{{ dependency.name }}</span>
+                            {% endfor %}
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="h6">Attachments</div>
+                        <div class="h7">
+                            {% if not ticket.attachments.count %}No attachments{% endif %}
+                            {% for attachemnt in ticket.attachments.all %}
+                                <span class="label label-primary">{{ attachemnt.name }}</span>
                             {% endfor %}
                         </div>
                     </li>

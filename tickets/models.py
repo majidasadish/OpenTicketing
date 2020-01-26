@@ -87,7 +87,7 @@ class Ticket(AbstractModel):
     priority = models.IntegerField(verbose_name=_('Priority'), choices=PRIORITIES, default=2)
     status = models.IntegerField(verbose_name=_('Status'), choices=STATUS, default=1)
     starred = models.BooleanField(verbose_name=_('Starred'), default=False)
-    dependecies = models.ManyToManyField("self", blank=True)
+    dependencies = models.ManyToManyField("self", blank=True)
 
     def get_comments(self):
         if self.comments.count():

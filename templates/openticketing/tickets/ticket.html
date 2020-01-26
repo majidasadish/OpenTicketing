@@ -124,6 +124,7 @@ body {
             </div>
 
             <!--- \\\\\\\Post-->
+            {% for comment in ticket.get_comments %}
             <div class="card gedf-card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
@@ -132,8 +133,8 @@ body {
                                 <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
                             </div>
                             <div class="ml-2">
-                                <div class="h5 m-0">@LeeCross</div>
-                                <div class="h7 text-muted">Miracles Lee Cross</div>
+                                <div class="h5 m-0">{{ comment.create_user.get_full_name }}</div>
+                                <div class="h7 text-muted">{{ comment.create_date }}</div>
                             </div>
                         </div>
                     <div>
@@ -152,14 +153,15 @@ body {
                 </div>
             </div>
             <div class="card-body">
-                <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>10 min ago</div>
+                <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>
+                    {% if comment.write_user %}
+                    Edited by {{ comment.write_user.get_full_name }} on {{ comment.write_date }}
+                    {% endif %}
+                </div>
                 <a class="card-link" href="#">
-                    <h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adip.</h5>
+                    <h5 class="card-title">{{ comment.name }}</h5>
                 </a>
-                <p class="card-text">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo recusandae nulla rem eos ipsa praesentium esse magnam nemo dolor
-                            sequi fuga quia quaerat cum, obcaecati hic, molestias minima iste voluptates.
-                </p>
+                <p class="card-text">{{ comment.note }}</p>
             </div>
 
             <div class="card-footer">
@@ -168,6 +170,7 @@ body {
                 <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
             </div>
         </div>
+        {% endfor %}
                 <!-- Post /////-->
             </div>
             <div class="col-md-3">

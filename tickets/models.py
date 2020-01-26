@@ -89,6 +89,10 @@ class Ticket(AbstractModel):
     starred = models.BooleanField(verbose_name=_('Starred'), default=False)
     dependecies = models.ManyToManyField("self", blank=True)
 
+    def get_comments(self):
+        if self.comments.count():
+            return self.comments.order_by('-create_date')
+
     def __str__(self):
         return f"{self.subject} [{self.submitter}]"
 
@@ -123,4 +127,5 @@ class Comment(AbstractModel):
         null=True,
         verbose_name=_('Ticket')
     )
+    name = models.CharField(max_length=128, verbose_name=_('Name'))
     note = models.TextField(verbose_name=_('Note'))

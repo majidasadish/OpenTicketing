@@ -45,9 +45,9 @@ admin.site.register(Ticket, TicketAdmin)
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'note', 'ticket')
-    search_fields = ('id', 'note', 'ticket')
-    list_display_links = ('id', 'note')
+    list_display = ('id', 'name', 'note', 'ticket')
+    search_fields = ('id', 'name', 'ticket')
+    list_display_links = ('id', 'name', 'note')
     list_per_page = 20
 
 admin.site.register(Comment, CommentAdmin)

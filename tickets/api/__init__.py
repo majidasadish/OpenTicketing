@@ -19,28 +19,6 @@
 #
 ##############################################################################
 
-from django.conf.urls import include, url
-from django.contrib.auth.decorators import login_required
-from django.urls import path
-
-from . import views
-
-from tickets.app_views.pages.dashboard import dashboard
-from tickets.app_views.tickets.my_tickets import MyTickets
-from tickets.app_views.tickets.ticket import TicketView
-
-
-app_name = 'tickets'
-
-urlpatterns = [
-    path('', dashboard, name='home'),
-    path('ticket/<int:id>', login_required(TicketView.as_view()), name='ticket'),
-
-    path('dashboard/', dashboard, name='dashboard'),
-    path('submitter/<int:id>', views.submitter, name='submitter'),
-
-    path('my_tickets/', MyTickets.as_view(), name='customer-my-tickets'),
-    path('submit/', views.submit, name='submit'),
-
-    url('api/', include('tickets.api.urls')),
-]
+from . import analytics
+from . import serializers
+from . import ticket

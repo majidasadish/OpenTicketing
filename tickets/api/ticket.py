@@ -19,28 +19,22 @@
 #
 ##############################################################################
 
-from django.conf.urls import include, url
-from django.contrib.auth.decorators import login_required
-from django.urls import path
+from rest_framework import generics
 
-from . import views
+from tickets.models import Ticket
+from .serializers import TicketSerializer
 
-from tickets.app_views.pages.dashboard import dashboard
-from tickets.app_views.tickets.my_tickets import MyTickets
-from tickets.app_views.tickets.ticket import TicketView
+class TicketRUDView(generics.RetrieveUpdateDestroyAPIView):
 
+    lookup_field = 'pk'
+    serializer_class = TicketSerializer
+    # queryset = Ticket.objects.all()
 
-app_name = 'tickets'
-
-urlpatterns = [
-    path('', dashboard, name='home'),
-    path('ticket/<int:id>', login_required(TicketView.as_view()), name='ticket'),
-
-    path('dashboard/', dashboard, name='dashboard'),
-    path('submitter/<int:id>', views.submitter, name='submitter'),
-
-    path('my_tickets/', MyTickets.as_view(), name='customer-my-tickets'),
-    path('submit/', views.submit, name='submit'),
-
-    url('api/', include('tickets.api.urls')),
-]
+    def get_queryset(self):
+        return Ticket.objects.all()
+    
+    def get_object(self):
+        pk = self.kwargs.get('id')
+        return Ticket.objects.get(pk=pk)
+    
+    

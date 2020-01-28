@@ -19,28 +19,27 @@
 #
 ##############################################################################
 
-from django.conf.urls import include, url
-from django.contrib.auth.decorators import login_required
-from django.urls import path
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
-from . import views
+from utils import change_date2str
 
-from tickets.app_views.pages.dashboard import dashboard
-from tickets.app_views.tickets.my_tickets import MyTickets
-from tickets.app_views.tickets.ticket import TicketView
+class TicketHistoryData(APIView):
+    authentication_classes = []
+    permission_classes = []
+    def get(self, request, format=None):
+        data = {
+              "type": "line",
+              "data": {
+                "labels": ["January","February","March","April","May","June","July"],
+                "datasets": [{
+                  "label": "No of submitted Tickets",
+                  "data": [65, 59, 80, 81, 56, 55, 40, 25],
+                  "fill": False,
+                  "borderColor":"rgb(75, 192, 192)",
+                  "lineTension":0.1}]
+                },
+              "options":{}
+            }
 
-
-app_name = 'tickets'
-
-urlpatterns = [
-    path('', dashboard, name='home'),
-    path('ticket/<int:id>', login_required(TicketView.as_view()), name='ticket'),
-
-    path('dashboard/', dashboard, name='dashboard'),
-    path('submitter/<int:id>', views.submitter, name='submitter'),
-
-    path('my_tickets/', MyTickets.as_view(), name='customer-my-tickets'),
-    path('submit/', views.submit, name='submit'),
-
-    url('api/', include('tickets.api.urls')),
-]
+        return Response(data)

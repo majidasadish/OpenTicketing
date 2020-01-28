@@ -66,7 +66,13 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
     ]
 }
 
@@ -147,3 +153,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 LOGIN_URL = 'web:login'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# AWS Config Settings
+
+AWS_DYNAMODB_REGION_NAME = ''
+
+AWS_ACCESS_KEY_ID = ''
+
+AWS_SECRET_ACCESS_KEY = ''

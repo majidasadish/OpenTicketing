@@ -19,28 +19,16 @@
 #
 ##############################################################################
 
-from django.conf.urls import include, url
-from django.contrib.auth.decorators import login_required
+from django.conf.urls import url
 from django.urls import path
 
-from . import views
-
-from tickets.app_views.pages.dashboard import dashboard
-from tickets.app_views.tickets.my_tickets import MyTickets
-from tickets.app_views.tickets.ticket import TicketView
-
-
-app_name = 'tickets'
+from .analytics.chart import TicketHistoryData
+from .ticket import TicketRUDView
 
 urlpatterns = [
-    path('', dashboard, name='home'),
-    path('ticket/<int:id>', login_required(TicketView.as_view()), name='ticket'),
+    path('api/analytics/ticket-history', TicketHistoryData.as_view(), name='api-analytics-history'),
+    path('api/analytics/ticket-status', TicketHistoryData.as_view(), name='api-analytics-status'),
 
-    path('dashboard/', dashboard, name='dashboard'),
-    path('submitter/<int:id>', views.submitter, name='submitter'),
-
-    path('my_tickets/', MyTickets.as_view(), name='customer-my-tickets'),
-    path('submit/', views.submit, name='submit'),
-
-    url('api/', include('tickets.api.urls')),
+    # Example: http://127.0.0.1:8000/tickets/api/1/
+    url(r'^(?P<id>\d+)/$', TicketRUDView.as_view(), name='ticket-api'),
 ]

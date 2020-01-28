@@ -21,6 +21,7 @@
 
 
 from . import models
+from . import dynamodb_models
 
 def change_date2str(year, month):
     return ''

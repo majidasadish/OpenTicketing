@@ -23,7 +23,7 @@ from django.conf.urls import url
 from django.urls import path
 
 from .analytics.chart import TicketHistoryData
-from .ticket import TicketRUDView
+from .ticket import TicketRUDView, TicketCreateView
 
 urlpatterns = [
     path('api/analytics/ticket-history', TicketHistoryData.as_view(), name='api-analytics-history'),
@@ -31,4 +31,5 @@ urlpatterns = [
 
     # Example: http://127.0.0.1:8000/tickets/api/1/
     url(r'^(?P<id>\d+)/$', TicketRUDView.as_view(), name='ticket-api'),
+    path('', TicketCreateView.as_view(), name='ticket-create'),
 ]

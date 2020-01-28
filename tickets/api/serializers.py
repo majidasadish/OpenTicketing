@@ -27,8 +27,18 @@ class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
         fields = [
-            'pk', 'subject', 'submitter', 'category'
+            'pk', 'subject', 'submitter', 'category', 'create_user', 'create_date', 'write_user', 'write_date',
         ]
+        read_only_fields = ['pk', 'create_user', 'create_date', 'write_user', 'write_date',]
 
     # convert to JSON
     # validation for data passed
+    def validate_subject(self, value):
+        print('validate subject field for %s!' % value)
+        qs = Ticket.objects.filter(subject__iexact=value)
+        if self.instance:
+            qs.exclude(pk=self.instance.pk)
+        if qs.exists():
+            raise serializers.ValidationError('The subject must be exact!')
+        else:
+            return value

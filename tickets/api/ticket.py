@@ -19,10 +19,25 @@
 #
 ##############################################################################
 
+from datetime import datetime
+
 from rest_framework import generics
 
 from tickets.models import Ticket
 from .serializers import TicketSerializer
+
+class TicketCreateView(generics.CreateAPIView):
+
+    lookup_field = 'pk'
+    serializer_class = TicketSerializer
+    # queryset = Ticket.objects.all()
+
+    def get_queryset(self):
+        return Ticket.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(create_user=self.request.user)
+
 
 class TicketRUDView(generics.RetrieveUpdateDestroyAPIView):
 
@@ -36,5 +51,8 @@ class TicketRUDView(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         pk = self.kwargs.get('id')
         return Ticket.objects.get(pk=pk)
+
+    def perform_update(self, serializer):
+        serializer.save(write_user=self.request.user, write_date=datetime.now())
     
     

@@ -21,28 +21,48 @@
 
 from datetime import datetime
 
-from rest_framework import generics
+from django.db.models import Q
+
+from rest_framework import generics, mixins
 
 from tickets.models import Ticket
+from .permissions import IsOwnerOrReadonly
 from .serializers import TicketSerializer
 
-class TicketCreateView(generics.CreateAPIView):
+class TicketListView(mixins.CreateModelMixin, generics.ListAPIView):
 
     lookup_field = 'pk'
     serializer_class = TicketSerializer
     # queryset = Ticket.objects.all()
 
     def get_queryset(self):
-        return Ticket.objects.all()
+        qs = Ticket.objects.all()
+        query = self.request.GET.get('q')
+        if query is not None:
+            qs = qs.filter(
+                        Q(subject__icontains=query)|
+                        Q(description__icontains=query)
+                        ).distinct()
+        return qs
 
     def perform_create(self, serializer):
         serializer.save(create_user=self.request.user)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+    #def put(self, request, *args, **kwargs):
+    #    self.update(request, *args, **kwargs)
+
+    #def patch(self, request, *args, **kwargs):
+    #    self.update(request, *args, **kwargs)
 
 
 class TicketRUDView(generics.RetrieveUpdateDestroyAPIView):
 
     lookup_field = 'pk'
     serializer_class = TicketSerializer
+    permission_classes = [IsOwnerOrReadonly]
     # queryset = Ticket.objects.all()
 
     def get_queryset(self):

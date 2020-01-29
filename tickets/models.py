@@ -93,6 +93,10 @@ class Ticket(AbstractModel):
         if self.comments.count():
             return self.comments.order_by('-create_date')
 
+    @property
+    def owners(self):
+        return [self.create_user, self.assigned_to]
+
     def __str__(self):
         return f"{self.subject} [{self.submitter}]"
 

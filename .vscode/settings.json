@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "C:\\Users\\barari\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
+    "python.pythonPath": "env\\Scripts\\python.exe",
     "python.linting.enabled": true
 }

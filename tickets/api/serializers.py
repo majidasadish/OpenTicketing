@@ -23,6 +23,7 @@ from rest_framework import serializers
 
 from tickets.models import Ticket
 
+
 class TicketSerializer(serializers.ModelSerializer):
     url = serializers.SerializerMethodField(read_only=True)
     class Meta:
@@ -32,7 +33,7 @@ class TicketSerializer(serializers.ModelSerializer):
             'pk', 
             'subject',
             'submitter', 
-            'category', 
+            #'category', 
             'create_user',
             'create_date', 
             'write_user', 
@@ -49,8 +50,8 @@ class TicketSerializer(serializers.ModelSerializer):
     def validate_subject(self, value):
         print('validate subject field for %s!' % value)
         qs = Ticket.objects.filter(subject__iexact=value)
-        if self.instance:
-            qs.exclude(pk=self.instance.pk)
+        if self.instance.pk:
+            qs = qs.exclude(id=self.instance.pk)
         if qs.exists():
             raise serializers.ValidationError('The subject must be exact!')
         else:

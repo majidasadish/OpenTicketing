@@ -22,11 +22,32 @@
 from rest_framework import status
 from rest_framework.reverse import reverse as api_reverse
 from rest_framework.test import APITestCase
+from rest_framework_jwt.settings import api_settings
+
 from django.contrib.auth import get_user_model
 
-from tickets.models import Ticket
+from tickets.models import Ticket, TicketCategory
+
 
 User = get_user_model()
+
+payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+
+encode_handler = api_settings.JWT_ENCODE_HANDLER
+
+
+class TicketCategoryTestCase(APITestCase):
+
+    def setUp(self):
+        user_obj = User(username="test", email="test@openticketing.org")
+        user_obj.set_password("someRandomPassword123")
+        user_obj.save()
+        ticket_cat = TicketCategory.objects.create(name="Test Cat", create_user=user_obj)
+
+    def test_update_ticket_cat_with_user(self):
+        user = User.objects.first()
+        payload = payload_handler(user)
+        token = encode_handler(payload)
 
 class TicketTestCase(APITestCase):
 
@@ -53,11 +74,25 @@ class TicketTestCase(APITestCase):
         response = self.client.get(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-    def test_update_ticket(self):
+    def test_update_authentication(self):
         ticket = Ticket.objects.first()
         data = {"subject":"new subject!"}
         url = ticket.get_api_url()
         response = self.client.post(url, data, format="json")
-        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         response = self.client.put(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_update_ticket_with_user(self):
+        user = User.objects.first()
+        ticket = Ticket.objects.first()
+        data = {"subject":"New Subject", "description":"some new description",
+            "submitter":user.id}
+        url = ticket.get_api_url()
+        payload = payload_handler(user)
+        token = encode_handler(payload)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
+        #self.client.credentials(HTTP_AUTHORIZATION1='JWT ' + token)
+        response = self.client.patch(url, data, format="json")
+        print('---------------------!!!!!!!!!!!!!>>>>>>>>>>>>>>>>', response.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

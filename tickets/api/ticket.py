@@ -23,8 +23,7 @@ from datetime import datetime
 
 from django.db.models import Q
 
-from rest_framework import generics, mixins
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics, mixins, permissions
 
 from tickets.models import Ticket
 from .permissions import IsOwner
@@ -66,7 +65,7 @@ class TicketRUDView(generics.RetrieveUpdateDestroyAPIView):
 
     lookup_field = 'pk'
     serializer_class = TicketSerializer
-    permission_classes = [IsAuthenticated|IsOwner]
+    # permission_classes = [permissions.IsAuthenticated, IsOwner]
     # queryset = Ticket.objects.all()
     
     def get_serializer_context(self, *args, **kwargs):
@@ -79,7 +78,7 @@ class TicketRUDView(generics.RetrieveUpdateDestroyAPIView):
         pk = self.kwargs.get('id')
         return Ticket.objects.get(pk=pk)
 
-    def perform_update(self, serializer):
-        serializer.save(write_user=None, write_date=datetime.now())#self.request.user
+    #def perform_update(self, serializer):
+    #    serializer.save(write_user=None, write_date=datetime.now())#self.request.user
     
     

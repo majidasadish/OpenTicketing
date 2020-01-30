@@ -97,7 +97,7 @@ class Ticket(AbstractModel):
 
     @property
     def owners(self):
-        return [self.create_user, self.assigned_to]
+        return [self.create_user, self.assigned_to, self.submitter]
 
     def get_api_url(self, request=None):
         return api_reverse("tickets:ticket-api:ticket-rud", kwargs={'id':self.pk}, request=request)

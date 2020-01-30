@@ -89,7 +89,7 @@ Dashboard - My tickets
 
 {% block jquery %}
 <script type="text/javascript">
-var endpoint = "{% url 'tickets:api-analytics-history' %}";
+var endpoint = "{% url 'tickets:ticket-api:api-analytics-history' %}";
 $.ajax({
     method: "GET",
     url: endpoint,
@@ -102,7 +102,7 @@ $.ajax({
     }
 });
 
-endpoint = "{% url 'tickets:api-analytics-status' %}";
+endpoint = "{% url 'tickets:ticket-api:api-analytics-status' %}";
 $.ajax({
     method: "GET",
     url: endpoint,

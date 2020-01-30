@@ -24,9 +24,10 @@ from datetime import datetime
 from django.db.models import Q
 
 from rest_framework import generics, mixins
+from rest_framework.permissions import IsAuthenticated
 
 from tickets.models import Ticket
-from .permissions import IsOwnerOrReadonly
+from .permissions import IsOwner
 from .serializers import TicketSerializer
 
 class TicketListView(mixins.CreateModelMixin, generics.ListAPIView):
@@ -45,6 +46,9 @@ class TicketListView(mixins.CreateModelMixin, generics.ListAPIView):
                         ).distinct()
         return qs
 
+    def get_serializer_context(self, *args, **kwargs):
+        return {"request": self.request}
+        
     def perform_create(self, serializer):
         serializer.save(create_user=self.request.user)
 
@@ -62,8 +66,11 @@ class TicketRUDView(generics.RetrieveUpdateDestroyAPIView):
 
     lookup_field = 'pk'
     serializer_class = TicketSerializer
-    permission_classes = [IsOwnerOrReadonly]
+    permission_classes = [IsAuthenticated|IsOwner]
     # queryset = Ticket.objects.all()
+    
+    def get_serializer_context(self, *args, **kwargs):
+        return {"request": self.request}
 
     def get_queryset(self):
         return Ticket.objects.all()
@@ -73,6 +80,6 @@ class TicketRUDView(generics.RetrieveUpdateDestroyAPIView):
         return Ticket.objects.get(pk=pk)
 
     def perform_update(self, serializer):
-        serializer.save(write_user=self.request.user, write_date=datetime.now())
+        serializer.save(write_user=None, write_date=datetime.now())#self.request.user
     
     

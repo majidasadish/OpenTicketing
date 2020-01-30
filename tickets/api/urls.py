@@ -30,6 +30,6 @@ urlpatterns = [
     path('api/analytics/ticket-status', TicketHistoryData.as_view(), name='api-analytics-status'),
 
     # Example: http://127.0.0.1:8000/tickets/api/1/
-    url(r'^(?P<id>\d+)/$', TicketRUDView.as_view(), name='ticket-api'),
-    path('', TicketListView.as_view(), name='ticket-create'),
+    url(r'^(?P<id>\d+)/$', TicketRUDView.as_view(), name='ticket-rud'),
+    path('', TicketListView.as_view(), name='listcreate'),
 ]

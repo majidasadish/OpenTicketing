@@ -42,5 +42,5 @@ urlpatterns = [
     path('my_tickets/', MyTickets.as_view(), name='customer-my-tickets'),
     path('submit/', views.submit, name='submit'),
 
-    url('api/', include('tickets.api.urls')),
+    url('api/', include(('tickets.api.urls', 'tickets'), namespace="ticket-api")),
 ]

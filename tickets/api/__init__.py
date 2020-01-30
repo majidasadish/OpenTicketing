@@ -23,3 +23,4 @@ from . import permissions
 from . import analytics
 from . import serializers
 from . import ticket
+from . import test

@@ -24,6 +24,8 @@ from datetime import datetime
 from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
+from rest_framework.reverse import reverse as api_reverse
 
 from utils.models import AbstractModel
 from web_app.models import Department, Organization
@@ -96,6 +98,9 @@ class Ticket(AbstractModel):
     @property
     def owners(self):
         return [self.create_user, self.assigned_to]
+
+    def get_api_url(self, request=None):
+        return api_reverse("tickets:ticket-api:ticket-rud", kwargs={'id':self.pk}, request=request)
 
     def __str__(self):
         return f"{self.subject} [{self.submitter}]"

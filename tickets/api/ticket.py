@@ -65,7 +65,7 @@ class TicketRUDView(generics.RetrieveUpdateDestroyAPIView):
 
     lookup_field = 'pk'
     serializer_class = TicketSerializer
-    # permission_classes = [permissions.IsAuthenticated, IsOwner]
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
     # queryset = Ticket.objects.all()
     
     def get_serializer_context(self, *args, **kwargs):
@@ -78,7 +78,7 @@ class TicketRUDView(generics.RetrieveUpdateDestroyAPIView):
         pk = self.kwargs.get('id')
         return Ticket.objects.get(pk=pk)
 
-    #def perform_update(self, serializer):
-    #    serializer.save(write_user=None, write_date=datetime.now())#self.request.user
+    def perform_update(self, serializer):
+        serializer.save(write_user=self.request.user, write_date=datetime.now())
     
     

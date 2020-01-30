@@ -93,6 +93,15 @@ class TicketTestCase(APITestCase):
         token = encode_handler(payload)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
         #self.client.credentials(HTTP_AUTHORIZATION1='JWT ' + token)
-        response = self.client.patch(url, data, format="json")
-        print('---------------------!!!!!!!!!!!!!>>>>>>>>>>>>>>>>', response.data)
+        response = self.client.put(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        print(response.data)
+
+    def test_login_user(self):
+        data = {
+            'username': 'test',
+            'password': 'someRandomPassword123'
+        }
+        url = api_reverse('api-login')
+        response = self.client.post(url, data)
+        token = response.data

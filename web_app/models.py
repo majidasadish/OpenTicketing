@@ -24,6 +24,24 @@ from django.utils.translation import gettext_lazy as _
 
 from utils.models import AbstractModel
 
+'''
+ This model used for holding ticket categories like:
+ - New Features
+ - Using Applications
+ - Using APIs
+ - Other
+ '''
+class Category(AbstractModel):
+    class Meta:
+        db_table = 'ot_category'
+        verbose_name = _('Category')
+    
+    name = models.CharField(max_length=50, verbose_name=_('Name'))
+
+    def __str__(self):
+        return self.name
+
+
 class Department(AbstractModel):
     class Meta:
         db_table = 'ot_department'
@@ -45,4 +63,15 @@ class Organization(AbstractModel):
 
     def __str__(self):
         return self.name
+
+
+class BlogPost(AbstractModel):
+    class Meta:
+        db_table = 'op_blogpost'
     
+    name = models.CharField(max_length=256, verbose_name=_('Name'))
+    body = models.TextField(verbose_name=_('Body'))
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Category'))
+
+    def __str__(self):
+        return self.name

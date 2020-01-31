@@ -21,15 +21,7 @@
 
 from django.contrib import admin
 
-from .models import TicketCategory, Ticket, Comment
-
-
-class TicketCategoryAmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
-    fields = ('name',)
-    list_per_pages = 20
-
-admin.site.register(TicketCategory, TicketCategoryAmin)
+from .models import Ticket, Comment
 
 
 class TicketAdmin(admin.ModelAdmin):
@@ -45,9 +37,9 @@ admin.site.register(Ticket, TicketAdmin)
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'note', 'ticket')
+    list_display = ('id', 'name', 'ticket', 'create_user', 'create_date')
     search_fields = ('id', 'name', 'ticket')
-    list_display_links = ('id', 'name', 'note')
+    list_display_links = ('id', 'name')
     list_per_page = 20
 
 admin.site.register(Comment, CommentAdmin)

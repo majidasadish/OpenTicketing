@@ -25,13 +25,13 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, resolve_url
 
+from .models import BlogPost
 
 default_login_view = LoginView.as_view(template_name='openticketing/login.html')
 
-
 def home(request):
-    return render(request, 'openticketing/home.html')
-
+    blog_posts = BlogPost.objects.order_by('-create_date')[:6]
+    return render(request, 'openticketing/home.html', context=dict(blog_posts= blog_posts))
 
 def login(request):
     # Prevent redirect loop by checking that LOGIN_URL is not this view's name
@@ -41,11 +41,9 @@ def login(request):
     else:
         return default_login_view(request)
 
-
 @login_required
 def user_profile(request):
     return render(request, 'openticketing/web_app/user_profile.html')
-
 
 @login_required
 def user_setting(request):

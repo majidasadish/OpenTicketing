@@ -18,10 +18,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from datetime import datetime
 
 from django.contrib import admin
 
-from .models import Department, Organization
+from .models import Department, Organization, Category, BlogPost
 
 class DepartmentAmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'description', 'active')
@@ -41,3 +42,26 @@ class OrganizationAmin(admin.ModelAdmin):
     list_per_page = 20
 
 admin.site.register(Organization, OrganizationAmin)
+
+
+class CategoryAmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+    fields = ('name',)
+    list_per_pages = 20
+
+admin.site.register(Category, CategoryAmin)
+
+
+class BlogPostAmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'category', 'create_date', 'create_user')
+    fields = ('category', 'name', 'body')
+    search_fields = ('name', 'category')
+    list_display_links = ('id', 'name')
+    list_per_pages = 20
+
+    def save_model(self, request, obj, form, change):
+        obj.create_user = request.user
+        obj.save()
+
+
+admin.site.register(BlogPost, BlogPostAmin)

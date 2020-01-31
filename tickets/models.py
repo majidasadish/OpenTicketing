@@ -28,25 +28,8 @@ from django.urls import reverse
 from rest_framework.reverse import reverse as api_reverse
 
 from utils.models import AbstractModel
-from web_app.models import Department, Organization
+from web_app.models import Department, Organization, Category
 
-'''
- This model used for holding ticket categories like:
- - New Features
- - Using Applications
- - Using APIs
- - Other
- '''
-class TicketCategory(AbstractModel):
-    class Meta:
-        db_table = 'ot_category'
-        verbose_name = _('Ticket category')
-    
-    name = models.CharField(max_length=50, verbose_name=_('Name'))
-
-    def __str__(self):
-        return self.name
-    
 
 class Ticket(AbstractModel):
     class Meta:
@@ -68,7 +51,7 @@ class Ticket(AbstractModel):
     subject = models.CharField(max_length=200, verbose_name=_('Subject'))
     description = models.TextField(verbose_name=_('Description'))
     department = models.ForeignKey(Department, on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Department'))
-    category = models.ForeignKey(TicketCategory, on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Help Topics'))
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Help Topics'))
     submitter = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

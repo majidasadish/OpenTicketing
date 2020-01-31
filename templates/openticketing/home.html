@@ -31,6 +31,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Welcome {{ request.user }}!</a>
                 <div class="dropdown-menu">
+                  {% if request.user.is_superuser %}<a class="dropdown-item" href="{% url 'admin:index' %}">Admin page</a>{% endif %}
                   <a class="dropdown-item" href="{% url 'tickets:home' %}">Dashboard</a>
                   <a class="dropdown-item" href="{% url 'web:logout' %}">Logout</a>
                 </div>
@@ -67,4 +68,32 @@
     </div>
   </div>
 </header>
+
+<div class="container-fluid gedf-wrapper">
+    <div class="row">
+        <div class="col-md-3">
+          {% if blog_posts %}
+            {% for blog_post in blog_posts %}
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">{{ blog_post.name }}</h6>
+                </div>
+                <div class="card-body">
+                  <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>
+                      Wrote by {{ blog_post.create_user.get_full_name }} on {{ blog_post.create_date }}
+                  </div>
+                {{ blog_post.body }}
+                </div>
+            </div>
+            {% endfor %}
+          {% else %}
+            <div class="card">
+                <div class="card-body">
+                No blog Post found!
+                </div>
+            </div>
+          {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock content %}

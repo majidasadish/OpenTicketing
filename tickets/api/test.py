@@ -26,7 +26,7 @@ from rest_framework_jwt.settings import api_settings
 
 from django.contrib.auth import get_user_model
 
-from tickets.models import Ticket, TicketCategory
+from tickets.models import Ticket
 
 
 User = get_user_model()
@@ -105,3 +105,5 @@ class TicketTestCase(APITestCase):
         url = api_reverse('api-login')
         response = self.client.post(url, data)
         token = response.data
+        self.assertNotEqual(token, None)
+        

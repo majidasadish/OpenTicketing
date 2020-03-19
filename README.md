@@ -9,3 +9,10 @@ pip install djangorestframework-jwt
 
 pip install boto3
 
+------
+
+npm init -y
+
+npm i -D webpack webpack-cli
+
+npm i -D @babel/core babel-loader @babel/preset-env @babel/preset-react babel-plugin-transform-class-properties

@@ -25,6 +25,7 @@ urlpatterns = [
     path('tickets/', include('tickets.urls')),
     path('admin/', admin.site.urls),
     url(r'^api/auth/login$', obtain_jwt_token, name='api-login'),
+    path('', include('frontend.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

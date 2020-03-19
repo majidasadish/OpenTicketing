@@ -28,7 +28,7 @@ from . import views
 app_name = 'web'
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('standard', views.home, name='home'),
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', LogoutView.as_view(template_name='openticketing/logout.html'), name='logout'),
     path('user-profile/', views.user_profile, name='user-profile'),

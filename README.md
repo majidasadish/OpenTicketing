@@ -21,4 +21,10 @@ npm i -D webpack webpack-cli
 
 npm i -D @babel/core babel-loader @babel/preset-env @babel/preset-react babel-plugin-transform-class-properties
 
+npm i css-loader style-loader --save-dev
+
 npm i react react-dom prop-types
+
+npm install @material-ui/core
+
+npm install @material-ui/icons

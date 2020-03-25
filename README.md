@@ -1,7 +1,10 @@
 # OpenTicketing
+
 Open source and Django based Ticketing System
 
-pip instalman   l django-crispy-forms
+python -m pip install Django
+
+pip install django-crispy-forms
 
 pip install djangorestframework
 
@@ -9,7 +12,7 @@ pip install djangorestframework-jwt
 
 pip install boto3
 
-------
+---
 
 pip install pipenv
 
